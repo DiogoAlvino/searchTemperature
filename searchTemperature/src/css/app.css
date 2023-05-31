@@ -21,59 +21,73 @@ body {
   display: grid;
 }
 
-header {
+main {
   width: 100%;
   height: 100vh;
   display: grid;
   place-items: center;
 }
-header .container-flex {
+main .container-flex {
   flex-direction: column;
 }
-header .container-flex .top {
+main .container-flex .top {
   display: flex;
   gap: 12px;
   align-items: center;
 }
-header .container-flex .top svg {
+main .container-flex .top svg {
   width: 25px;
   height: 25px;
   fill: white;
 }
-header .container-flex .top p {
+main .container-flex .top p {
   font-size: 2rem;
   color: white;
 }
-header .container-flex h1 {
+main .container-flex h1 {
   font-weight: 700;
   font-size: 10rem;
 }
-header .container-flex h2 {
+main .container-flex h2 {
   font-weight: 600;
   font-size: 2rem;
 }
-header .container-flex h1, header .container-flex h2 {
+main .container-flex h1, main .container-flex h2 {
   color: white;
 }
-header .container-grid {
+main .container-grid {
   place-items: center;
 }
-header .container-grid form #search {
+main .container-grid form {
   width: 100%;
-  height: 40px;
-  line-height: 28px;
-  padding: 0 1rem;
+  display: grid;
+  place-items: center;
+}
+main .container-grid form > div {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+}
+main .container-grid form > div label {
+  font-size: 1.5rem;
+  color: white;
+}
+main .container-grid form > div #search {
+  width: 100%;
+  max-width: 350px;
+  height: 46px;
+  padding: 0 24px;
+  line-height: 32px;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: 24px;
   outline: none;
   background-color: #f3f3f4;
   color: #0d0c22;
   transition: 0.3s ease;
 }
-header .container-grid form #search:focus, header .container-grid form #search:hover {
+main .container-grid form > div #search:focus, main .container-grid form > div #search:hover {
   outline: none;
   border-color: rgba(89, 179, 247, 0.4);
-  background-color: #fff;
   box-shadow: 0 0 0 4px rgba(89, 179, 247, 0.1);
 }
 

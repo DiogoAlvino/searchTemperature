@@ -1,115 +1,56 @@
-import React from 'react'
-import { BsFillSunFill } from 'react-icons/bs'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import SearchBar from './components/SearchBar'
+import Hero from './components/Hero'
 import './css/app.css'
-import { timezoneCity } from './api/script'
-import { temperatureCity } from './api/script'
-import { findTimezoneByCity } from './api/script'
-import { setPhrase } from './functions'
+
 
 function App() {
-
-  const [city, setCity] = useState("");
-  const [citySelected, setCitySelected] = useState("");
-
-  const [timezoneSelected, setTimezoneSelected] = useState("");
-  const [timezoneData, setTimezoneData] = useState(null);
-
-  const [temperatureData, setTemperatureData] = useState(null);
-  const [hours, setHours] = useState("");
-
-  const [callAPI, setCallAPI] = useState(false);
-  const [sentence, setSentence] = useState("");
-
+  const [city, setCity] = useState('Marabá');
+  const [selectCity, setSelectCity] = useState('Marabá');
+  // inicio do get time
+  const [currentTime, setCurrentTime] = useState('00:00');
   useEffect(() => {
-    if (callAPI) {
-      const fetchDataTemperature = async () => {
-        try {
-          const response = await temperatureCity(city);
-          setTemperatureData(response.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
+    axios.get(`https://api.api-ninjas.com/v1/worldtime?city=${city}`, {
+      headers: {
+        "X-Api-Key": "6Jp5C63i0YloufC4swco9w==SBGJGyAi7QO0wzJ6"
+      }
+    })
+      .then(response => {
+        setCurrentTime(response.data.datetime.substr(11, 5))
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      })
+  }, [selectCity]);
+  // fim do get time
 
-      const fetchDataTimezoneByCity = async () => {
-        try {
-          const response = await findTimezoneByCity(city);
-          setTimezoneSelected(response.data.timezone);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      fetchDataTemperature();
-      fetchDataTimezoneByCity();
-
-      setCallAPI(false);
-    }
-  }, [city, callAPI]);
-
+  // inicio do get weather
+  const [country, setCountry] = useState('')
   useEffect(() => {
-    if (timezoneSelected && temperatureData) {
-      const fetchDataTimezone = async () => {
-        try {
-          const response = await timezoneCity(timezoneSelected);
-          setTimezoneData(response.data);
-          setHours(response.data.datetime.substr(11, 5));
-          setSentence(setPhrase(hours));
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      fetchDataTimezone();
-    }
-  }, [timezoneSelected, temperatureData]);
-
-  console.warn("search -> ", city)
-  console.warn("timezoneselected -> ", timezoneSelected)
-  console.warn("timezone -> ", timezoneData)
-  console.warn("temperatura => ", temperatureData)
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${selectCity}&units=metric&appid=ba605efc18f1572f61892fe426f18a1a&lang=pt_br`)
+      .then(response => {
+        setCountry(response.data.sys.country)
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }, [selectCity])
+  // fim do get weather
 
   return (
     <>
       <main>
-        <header>
-          <div className="container-grid">
-            <form action="" onSubmit={searchSubmit => searchSubmit.preventDefault()}>
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search"
-                value={city}
-                onChange={e => setCity(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    setCallAPI(true);
-                    setCitySelected(city);
-                  }
-                }}
-              />
-            </form>
-          </div>
-          <div className="container-flex">
-            {hours ? (
-              <>
-                <div className='top'>
-                  <BsFillSunFill />
-                  <p>GOOD {sentence}, IT'S CURRENTLY</p>
-                </div>
-                <h1>{hours}</h1>
-                <h2>IN {citySelected.toUpperCase()}, {temperatureData?.sys?.country}</h2>
-              </>
-            ) : null}
-          </div>
-
-        </header>
-        {/* <div>teste</div> */}
+        <div className="container-grid">
+          <SearchBar city={city} setCity={setCity} setSelectCity={setSelectCity} />
+        </div>
+        <div className="container-flex">
+          <Hero currentTime={currentTime} city={selectCity.toUpperCase()} country={country} />
+        </div>
       </main>
     </>
   )
 }
 
-export default App
+export default App;
