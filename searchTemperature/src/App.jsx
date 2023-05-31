@@ -35,7 +35,6 @@ function App() {
         setCountry(response.data.sys.country)
         setPhrase(response.data.weather[0].description)
         setTemp(response.data.main.temp)
-        console.log(response)
       })
       .catch(error => {
         console.log(error)
