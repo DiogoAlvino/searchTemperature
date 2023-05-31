@@ -8,6 +8,8 @@ import './css/app.css'
 function App() {
   const [city, setCity] = useState('Marabá');
   const [selectCity, setSelectCity] = useState('Marabá');
+  const [phrase, setPhrase] = useState('');
+  const [temp, setTemp] = useState('');
   // inicio do get time
   const [currentTime, setCurrentTime] = useState('00:00');
   useEffect(() => {
@@ -31,6 +33,8 @@ function App() {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${selectCity}&units=metric&appid=ba605efc18f1572f61892fe426f18a1a&lang=pt_br`)
       .then(response => {
         setCountry(response.data.sys.country)
+        setPhrase(response.data.weather[0].description)
+        setTemp(response.data.main.temp)
         console.log(response)
       })
       .catch(error => {
@@ -42,9 +46,13 @@ function App() {
   return (
     <>
       <main>
-        <div className="container-grid">
+        <header className='container-flex'>
+          <div className="clima">
+            <p>{phrase}</p>
+            <p>{temp}⁰C</p>
+          </div>
           <SearchBar city={city} setCity={setCity} setSelectCity={setSelectCity} />
-        </div>
+        </header>
         <div className="container-flex">
           <Hero currentTime={currentTime} city={selectCity.toUpperCase()} country={country} />
         </div>

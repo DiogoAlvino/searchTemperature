@@ -27,6 +27,52 @@ main {
   display: grid;
   place-items: center;
 }
+main header.container-flex {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+main header.container-flex .clima {
+  width: 100%;
+  max-width: 350px;
+}
+main header.container-flex .clima p {
+  font-size: 1.5rem;
+  color: white;
+}
+main header.container-flex form {
+  width: 100%;
+  max-width: 350px;
+  display: grid;
+  place-items: end;
+}
+main header.container-flex form > div {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+}
+main header.container-flex form > div label {
+  font-size: 1.5rem;
+  color: white;
+}
+main header.container-flex form > div #search {
+  width: 100%;
+  max-width: 300px;
+  height: 46px;
+  padding: 0 24px;
+  line-height: 32px;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+main header.container-flex form > div #search:focus, main header.container-flex form > div #search:hover {
+  outline: none;
+  border-color: rgba(89, 179, 247, 0.4);
+  box-shadow: 0 0 0 4px rgba(89, 179, 247, 0.1);
+}
 main .container-flex {
   flex-direction: column;
 }
@@ -54,41 +100,6 @@ main .container-flex h2 {
 }
 main .container-flex h1, main .container-flex h2 {
   color: white;
-}
-main .container-grid {
-  place-items: center;
-}
-main .container-grid form {
-  width: 100%;
-  display: grid;
-  place-items: center;
-}
-main .container-grid form > div {
-  width: 100%;
-  max-width: 350px;
-  display: flex;
-}
-main .container-grid form > div label {
-  font-size: 1.5rem;
-  color: white;
-}
-main .container-grid form > div #search {
-  width: 100%;
-  max-width: 350px;
-  height: 46px;
-  padding: 0 24px;
-  line-height: 32px;
-  border: 2px solid transparent;
-  border-radius: 24px;
-  outline: none;
-  background-color: #f3f3f4;
-  color: #0d0c22;
-  transition: 0.3s ease;
-}
-main .container-grid form > div #search:focus, main .container-grid form > div #search:hover {
-  outline: none;
-  border-color: rgba(89, 179, 247, 0.4);
-  box-shadow: 0 0 0 4px rgba(89, 179, 247, 0.1);
 }
 
 /*# sourceMappingURL=app.css.map */
