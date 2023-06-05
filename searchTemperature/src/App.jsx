@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
+import Header from './components/Header';
 import Hero from './components/Hero';
 import './css/app.css';
+import London from './assets/london.webp'
 import { callApi } from './functions';
 import { setPhrase } from './functions';
 
@@ -31,17 +33,8 @@ function App() {
   return (
     <>
       <main>
-        <header className='container-flex'>
-          <div className="clima">
-            {apiData && (
-              <>
-                <p>{apiData.phrase}</p>
-                <p>{apiData.temp}⁰C</p>
-              </>
-            )}
-          </div>
-          <SearchBar city={city} setCity={setCity} setSelectCity={setSelectCity} />
-        </header>
+        <img src={London} alt="city view" className='bg-image' />
+        <Header city={city} setCity={setCity} setSelectCity={setSelectCity} apiData={apiData} />
         <div className="container-flex">
           {apiData && (
             <Hero
